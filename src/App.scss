@@ -1,0 +1,23 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.badge-danger {
+  background: red;
+  padding: 5px;
+  margin: 0 5px;
+}
+
+.card-text {
+  text-align: left;
+}
+.navbar {
+  position: fixed;
+  width: 100%;
+  z-index: 100;
+}
