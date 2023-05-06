@@ -1,27 +1,24 @@
-// import logo from "./logo.svg";
-// import Link from "./link.js";
-import { Button, InputGroup } from "react-bootstrap";
-import { useState, useEffect, useRef, useContext, createContext } from "react";
+import { useState, useEffect } from "react";
 import Header from "./components/Header";
 import Banner from "./components/Banner";
 import Footer from "./components/Footer";
 import Producsts from "./components/Producsts";
-import CurrentShoppingListContext from "./context.js";
+import GlobalContext from "./context.js";
+import LoadingItem from "./components/Loading";
 import "./App.scss";
 
-// const currentShoppingListContext = createContext(null);
 const shoppingList = [];
 
 function App() {
   const [currentProductsList, setCurrentProductsList] = useState([]);
-  // const shoppingCart = useRef([]);
   const [shoppingCart, setShoppingCart] = useState(shoppingList);
-
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     // init setting
 
     // get Product
     const fetchProductsData = async () => {
+      setLoading(true);
       const request = await fetch(
         "https://mock.shop/api?query={products(first:%2020){edges%20{node%20{id%20title%20description%20featuredImage%20{id%20url}%20variants(first:%203){edges%20{node%20{price%20{amount%20currencyCode}}}}}}}}"
       );
@@ -32,13 +29,21 @@ function App() {
       }
     };
 
-    fetchProductsData().catch(console.error);
+    fetchProductsData()
+      .catch(console.error)
+      .finally(() => {
+        setLoading(false);
+      });
   }, []);
   return (
     <div className="App">
-      <CurrentShoppingListContext.Provider
-        value={{ shoppingCart, setShoppingCart }}
+      <GlobalContext.Provider
+        value={{
+          shoppingCartStatus: [shoppingCart, setShoppingCart],
+          loadingStatus: [loading, setLoading],
+        }}
       >
+        <LoadingItem message="Welcome to Shopping Website"></LoadingItem>
         <Header
           productsData={currentProductsList}
           shoppingCart={shoppingCart.current}
@@ -49,7 +54,7 @@ function App() {
           shoppingCart={shoppingCart.current}
         ></Producsts>
         <Footer></Footer>
-      </CurrentShoppingListContext.Provider>
+      </GlobalContext.Provider>
     </div>
   );
 }

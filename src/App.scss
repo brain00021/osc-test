@@ -7,6 +7,20 @@
   pointer-events: none;
 }
 
+:root {
+  --animate-delay: 0.5s;
+}
+
+@for $i from 1 through 18 {
+  .animate__delay-#{$i}s {
+    // animation-delay: #{$i * 0.5}s;
+    animation-delay: calc(var(--animate-delay) * $i);
+  }
+}
+.tab-content {
+  min-height: 300px;
+  position: relative;
+}
 .badge-danger {
   background: red;
   padding: 5px;

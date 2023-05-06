@@ -1,39 +1,37 @@
 import { Button, Dropdown, DropdownButton } from "react-bootstrap";
 import { useState, useEffect, useRef, useContext, createContext } from "react";
-import CurrentShoppingListContext from "../context.js";
+import GlobalContext from "../context.js";
 import { request, gql } from "graphql-request";
 
 const ShoppingItem = ({ productDetail }) => {
   let { productPrice, img, id, title, productValue } = productDetail;
-  const context = useContext(CurrentShoppingListContext);
+  const { shoppingCartStatus } = useContext(GlobalContext);
+  const [shoppingCart, setShoppingCart] = shoppingCartStatus;
   const removeShoppingListItem = (productId) => {
-    let tempShoppingCart = context.shoppingCart.filter(
-      (item) => item.id !== productId
-    );
-    console.log({ productId, tempShoppingCart }, "removetest");
-    context.setShoppingCart([...tempShoppingCart]);
+    let tempShoppingCart = shoppingCart.filter((item) => item.id !== productId);
+    setShoppingCart([...tempShoppingCart]);
   };
 
   const add = () => {
     let temp = productDetail;
     temp.productValue++;
-    context.setShoppingCart([...context.shoppingCart]);
+    setShoppingCart([...shoppingCart]);
   };
   const minus = () => {
     let temp = productDetail;
     temp.productValue--;
     if (temp.productValue == 0) {
-      let tempShoppingCart = context.shoppingCart.filter(
+      let tempShoppingCart = shoppingCart.filter(
         (item) => item.id !== productDetail.id
       );
-      context.setShoppingCart([...tempShoppingCart]);
+      setShoppingCart([...tempShoppingCart]);
     } else {
-      context.setShoppingCart([...context.shoppingCart]);
+      setShoppingCart([...shoppingCart]);
     }
   };
 
   return (
-    <tr class="shoppingListItem" data-testid={`shoppingListItem${title}`}>
+    <tr className="shoppingListItem" data-testid={`shoppingListItem${title}`}>
       <td className="align-middle text-center">
         <a
           role="button"
@@ -78,8 +76,9 @@ const ShoppingItem = ({ productDetail }) => {
   );
 };
 const ShoppingDropdown = ({ productsData = [] }) => {
-  const context = useContext(CurrentShoppingListContext);
-  const displayShoppingList = context.shoppingCart;
+  const { shoppingCartStatus } = useContext(GlobalContext);
+  const [shoppingCart, setShoppingCart] = shoppingCartStatus;
+  const displayShoppingList = shoppingCart;
   const totalPrice = displayShoppingList.reduce((acc, item, index) => {
     return (acc = acc + Number(item.productPrice) * item.productValue);
   }, 0);
@@ -95,7 +94,7 @@ const ShoppingDropdown = ({ productsData = [] }) => {
           aria-hidden="true"
         ></i>
         <span className="badge badge-pill badge-danger">
-          {context.shoppingCart.length}
+          {shoppingCart.length}
         </span>
         <span className="sr-only">unread messages</span>
       </Dropdown.Toggle>
