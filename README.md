@@ -15,6 +15,8 @@ you can see the [Demo](https://brain00021.github.io/osc-test/)
 ## Next features
 
 1. the product's detail page 
+
 2. the prodcut's checkout page
 3. features UI data testing 
   1. CRUD shoppingCartList checking
+4. change Global Variable to Redux 
