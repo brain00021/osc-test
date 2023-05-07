@@ -10,7 +10,7 @@ const LoadingDiv = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
-  z-index: 999;
+  z-index: ${(props) => props.zIndex || "999"};
   justify-content: center;
   align-items: center;
   background: #fff;
@@ -19,11 +19,12 @@ const LoadingDiv = styled.div`
 const Title = styled.h4`
   margin-bottom: 10px;
 `;
-const LoadingItem = ({ message = "" }) => {
+const LoadingItem = ({ message = "", zIndex = "999" }) => {
   const { loadingStatus } = useContext(GlobalContext);
   const [loading, setLoading] = loadingStatus;
   return (
     <LoadingDiv
+      zIndex={zIndex}
       className={`
         loadingPage
         ${!loading ? "animate__animated" : ""}

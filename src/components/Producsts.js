@@ -34,7 +34,6 @@ const Producsts = ({ productsData = [] }) => {
   };
 
   const addToBasket = (product) => {
-    // console.log(shoppingCart, "currentProductList");
     let findShoppingCartItem = shoppingCart.find(
       (item) => item.id === product.id
     );
@@ -121,7 +120,7 @@ const Producsts = ({ productsData = [] }) => {
                     );
                   })
                 ) : (
-                  <LoadingItem />
+                  <LoadingItem zIndex={95} />
                 )}
               </div>
               <nav aria-label="Page navigation" className="my-5">
