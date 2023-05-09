@@ -23,4 +23,4 @@ you can see the [Demo](https://brain00021.github.io/osc-test/)
 4. change Global Variable to Redux 
 
 ## error problem
-5.  CartCreate api can't find the  merchandiseId
+5.  CartCreate api can't find the  merchandiseId. even i can't find it on the product api
