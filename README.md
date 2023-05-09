@@ -11,6 +11,7 @@ you can see the [Demo](https://brain00021.github.io/osc-test/)
 4. As an online customer, you can  update my mini basket, so that I can add and/or remove an item.
 5. you can see the total value of my basket.
 6. I using useContext to save the shopping record. you can see your mini basket to anywhere by header components.
+7. 
 
 ## Next features
 
@@ -20,3 +21,6 @@ you can see the [Demo](https://brain00021.github.io/osc-test/)
 3. features UI data testing 
   1. CRUD shoppingCartList checking
 4. change Global Variable to Redux 
+
+## error problem
+5.  CartCreate api can't find the  merchandiseId
